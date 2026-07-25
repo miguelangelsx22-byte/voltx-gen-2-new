@@ -1,0 +1,859 @@
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/gen2"))()
+
+local window = Rayfield:CreateWindow({
+    name = "VOLTX GEN 2",
+    configuration = {
+        autoSave = true,      -- save on change
+        autoLoad = true,      -- load on first open
+        fileName = "VOLTX GEN 2",
+        customFolder = "VOLTX GEN 2", -- optional
+    },
+})
+
+
+local tab = window:CreateTab({ name = "MAIN", icon = nil })
+
+
+tab:CreateButton({
+    name = "CMD Admin",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/lxte/cmd/main/main.lua"))()
+    end,
+})
+
+
+
+tab:CreateButton({
+    name = "InfY",
+    callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+    end,
+})
+
+tab:CreateButton({
+    name = "RSPY",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/SimpleSpyV3/main.lua"))()
+    end,
+})
+
+
+
+tab:CreateButton({
+    name = "Cerberus (Universal)",
+    callback = function()
+        loadstring(game:HttpGet("http://getcerberus.com/main.lua"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "UNC TEST",
+    callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/miguelangelsx22-byte/unctestforvoltx/refs/heads/main/UNCTest'))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Fe Trolling Hub",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "R15 Emotes",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/sypcerr/scripts/refs/heads/main/c15.lua",true))()
+    end,
+})
+
+
+
+
+tab:CreateButton({
+    name = "Opiam hub (Universal)",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/HydraRBXM/opiamhub/refs/heads/main/OpiamMain"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Fe seraphic ( r6 )",
+    callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/59mJGQGe/raw"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "AimLock (Universal)",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/miguelangelsx22-byte/aimlock/refs/heads/main/aimlock?token=GHSAT0AAAAAAEDYTGIEJUGHSZQPTE5BCIQI2TERJYA"))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "Player", icon = nil })
+
+
+
+tab:CreateSlider({
+    name = "FOV",
+    range = { 70, 120 },
+    increment = 1,
+    value = 90,
+    suffix = "°",
+    callback = function(value)
+        workspace.CurrentCamera.FieldOfView = value
+    end,
+})
+
+
+tab:CreateSlider({
+    name = "Walk Speed",
+    range = {16, 1000}, -- Min and max speed
+    increment = 1,
+    value = 16, -- Default Roblox walk speed
+    suffix = "",
+    callback = function(value)
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+        if humanoid then
+            humanoid.WalkSpeed = value
+        end
+    end,
+})
+
+
+
+
+tab:CreateSlider({
+    name = "Jump Power",
+    range = {50, 450},
+    increment = 1,
+    value = 50, -- Roblox default
+    suffix = "",
+    callback = function(value)
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+        if humanoid then
+            humanoid.UseJumpPower = true
+            humanoid.JumpPower = value
+        end
+    end,
+})
+
+
+
+
+tab:CreateSlider({
+    name = "Gravity",
+    range = {0, 196.2}, -- 196.2 is Roblox's default gravity
+    increment = 1,
+    value = 196.2,
+    suffix = "",
+    callback = function(value)
+        workspace.Gravity = value
+    end,
+})
+
+local flySpeed = 50
+local flying = false
+local flyConnection
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local player = game.Players.LocalPlayer
+
+
+local fly = tab:CreateToggle({
+    name = "Fly",
+    flag = "Fly",
+    value = false,
+
+    callback = function(value)
+        print("Fly:", value)
+
+        flying = value
+
+        if flyConnection then
+            flyConnection:Disconnect()
+            flyConnection = nil
+        end
+
+        if flying then
+            flyConnection = RunService.RenderStepped:Connect(function()
+                local character = player.Character
+                if not character then return end
+
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                local root = character:FindFirstChild("HumanoidRootPart")
+
+                if not humanoid or not root then return end
+
+                humanoid.PlatformStand = true
+
+local camera = workspace.CurrentCamera
+local moveDirection = humanoid.MoveDirection
+
+-- Make character face the camera
+root.CFrame = CFrame.new(
+    root.Position,
+    root.Position + camera.CFrame.LookVector
+)
+
+local velocity = Vector3.new(
+    moveDirection.X * flySpeed,
+    0,
+    moveDirection.Z * flySpeed
+)
+
+-- Fly up
+if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+    velocity += Vector3.new(0, flySpeed, 0)
+end
+
+-- Fly down
+if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+    velocity -= Vector3.new(0, flySpeed, 0)
+end
+
+root.AssemblyLinearVelocity = velocity
+
+                -- Fly down
+                if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+                    velocity -= Vector3.new(0, flySpeed, 0)
+                end
+
+                root.AssemblyLinearVelocity = velocity
+            end)
+
+        else
+            local character = player.Character
+            if character then
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                local root = character:FindFirstChild("HumanoidRootPart")
+
+                if humanoid then
+                    humanoid.PlatformStand = false
+                end
+
+                if root then
+                    root.AssemblyLinearVelocity = Vector3.zero
+                end
+            end
+        end
+    end,
+})
+
+fly:Set(false)
+
+
+tab:CreateSlider({
+    name = "Fly Speed",
+    range = {10, 200},
+    increment = 5,
+    value = 50,
+    suffix = "",
+    callback = function(value)
+        flySpeed = value
+    end,
+})
+
+
+
+
+
+local tab = window:CreateTab({ name = "Blox Fruits", icon = nil })
+
+
+tab:CreateButton({
+    name = "Axonic Keyless",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenniel123/BloxFruits/refs/heads/main/BloxFruits"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "OverFlow Hub",
+    callback = function()
+        loadstring(game:HttpGet("https://overflow.cx/loader.lua"))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "TSB", icon = nil })
+
+
+tab:CreateButton({
+    name = "Phantasm OP",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ATrainz/Phantasm/refs/heads/main/Games/TSB.lua"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Auto Block",
+    callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/6f502e252308fb97855295005faa73a0.lua"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Auto Farm",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/sparksnaps/AutoFarm/refs/heads/main/Lua"))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "99Nights", icon = nil })
+
+
+tab:CreateButton({
+    name = "Void Ware",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "JailBreak", icon = nil })
+
+
+tab:CreateButton({
+    name = "Auto Rob",
+    callback = function()
+        loadstring(game:HttpGet('http://scripts.projectauto.xyz/AutoRobV6'))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Auto Arrest",
+    callback = function()
+        loadstring(game:HttpGet('http://scripts.projectauto.xyz/AutoArrestV4'))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Car Speed",
+    callback = function()
+        -- I DO NOT OWN THIS SCRIPT
+
+---By:Unknown
+dir = 0
+gs = game.GetService
+gs(game,"RunService").RenderStepped:connect(function()
+   for i,v in next,workspace.Vehicles:children() do
+       if v.Name ~= "Heli" then
+           if v:FindFirstChild("Engine") then
+               local bf,cf = v.Engine:FindFirstChild("NewForce"),v:GetPrimaryPartCFrame().lookVector
+               if not bf then 
+                   bf = v.Engine:FindFirstChild("BodyForce") or v.Engine:FindFirstChild("VectorForce")
+                   if bf then
+                       bf = bf:Clone()
+                       bf.Parent = v.Engine
+                       bf.Name = "NewForce"
+                   end
+               end
+               if bf then
+                   local fa = 1
+                   if v.Name:lower():find("bike") then fa = .3 elseif v.Name:lower():find("bugg") then fa = .5 end
+                   if v.Seat.PlayerName.Value ~= game:GetService("Players").LocalPlayer.Name then fa = 0 end
+                   bf.Force = Vector3.new(cf.X*300000*dir*fa,0,cf.Z*300000*dir*fa)
+               end
+           end
+      end
+   end
+end)
+val = {
+{Enum.KeyCode.W,1};
+{Enum.KeyCode.S,-1};
+}
+uis = gs(game,"UserInputService")
+chk = function(k)
+   for i,v in next,val do
+       if v[1]==k.KeyCode then
+           return v[2]
+       end
+   end
+end
+uis.InputBegan:connect(function(k)
+dir = chk(k) or dir
+end)
+uis.InputEnded:connect(function(k)
+   if chk(k) == dir then
+       dir = 0
+   end
+end)
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "Rivals", icon = nil })
+
+
+tab:CreateButton({
+    name = "Z3us",
+    callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/blackowl1231/ZYPHERION/refs/heads/main/main.lua')))()
+    end,
+})
+
+
+
+tab:CreateButton({
+    name = "8Bit",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/8bits4ya/rivals-v3/refs/heads/main/main.lua"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "Blade Ball", icon = nil })
+
+
+tab:CreateButton({
+    name = "Argon",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AgentX771/ArgonHubX/main/Loader.lua"))()
+    end,
+})
+
+
+
+tab:CreateButton({
+    name = "Rise",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/joshhhie/rise/refs/heads/main/loader.lua"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "MM2", icon = nil })
+
+
+tab:CreateButton({
+    name = "Vertex ( good silent aim )",
+    callback = function()
+        loadstring(game:HttpGet('https://raw.smokingscripts.org/vertex.lua'))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Auto Farm",
+    callback = function()
+        loadstring(game:HttpGet("https://globalexp.xyz/"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Thunder Hub ( might be steal)",
+    callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Roman34296589/SnapSanixHUB/refs/heads/main/SnapSanixHUB.lua'))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "BABFT", icon = nil })
+
+
+tab:CreateButton({
+    name = "C4RL BABFT keyless",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/unrexl/Scripts/refs/heads/main/BABFT"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "OP script (idk name..)",
+    callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Build-A-Boat-For-Treasure-Ultimte-B3BFT-Script-28601"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "BSS", icon = nil })
+
+
+tab:CreateButton({
+    name = "MacroWare (key: 250yearsof_freespeech )",
+    callback = function()
+        loadstring(game:HttpGet("https://macroware.cc/loader.lua"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Kron Hub",
+    callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/DevKron/Kron_Hub/refs/heads/main/version_1.0'))("")
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "Scary Shawarma", icon = nil })
+
+
+
+tab:CreateButton({
+    name = "EF HUB",
+    callback = function()
+        loadstring(game:HttpGet('https://api.rubis.app/v2/scrap/wBNEkpigM0J1y5lV/raw', true))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "TBD ( BANNABLE )", icon = nil })
+
+
+
+tab:CreateButton({
+    name = "Front-Evill",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Front-Evill/Script-Hub/refs/heads/main/TiemBomb.V1.lua"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "PhantomX",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AlphaBay00/PhantomXLoader/main/Ld.lua.txt"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "DOORS", icon = nil })
+
+
+tab:CreateButton({
+    name = "NullFire",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TeamNullFire/NullFire/main/loader.lua"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "MSPaint ( Paid Version Better )",
+    callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/002c19202c9946e6047b0c6e0ad51f84.lua"))()
+    end,
+})
+
+
+
+tab:CreateButton({
+    name = "FFJ",
+    callback = function()
+        loadstring(game:HttpGet(('https://pastefy.app/mtgIUnEd/raw'),true))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "piggy", icon = nil })
+
+
+tab:CreateButton({
+    name = "StarHack",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/StarHackScripts/StarHack-Hub-Deepstar-Hub/refs/heads/main/StarHackHub_PiggyV2release"))()
+    end,
+})
+
+
+
+tab:CreateButton({
+    name = "Item Grabber",
+    callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/vNYaRykx"))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "Flee the facility", icon = nil })
+
+
+
+tab:CreateButton({
+    name = "Celeron",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ghostofcelleron/Celeron/refs/heads/main/Flee%20The%20Facility%20(OS)",true))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "ESP",
+    callback = function()
+        loadstring(game:HttpGet(('https://pastebin.com/raw/yEG8NzFi'),true))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "Keyboard Escape", icon = nil })
+
+
+
+tab:CreateButton({
+    name = "ARASAKA",
+    callback = function()
+        loadstring(game:HttpGet("https://gist.githubusercontent.com/nex-no1/ce10c68544ec307586f36cf1e6d15e98/raw/"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "JJS", icon = nil })
+
+
+tab:CreateButton({
+    name = "Nameless",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NeziaReal/jjs/refs/heads/main/main.lua"))()
+    end,
+})
+
+
+
+tab:CreateButton({
+    name = "TBO",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/cool5013/TBO/main/TBOscript"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "BrookHaven", icon = nil })
+
+
+tab:CreateButton({
+    name = "Glazed Hub",
+    callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Gazer-Ha/Gaze-stuff/refs/heads/main/Brookhaven'))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Troll",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/v0c0n1337/scripts/refs/heads/main/Brookhaven%20gui.lua"))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "Sell Lemons", icon = nil })
+
+
+tab:CreateButton({
+    name = "Axonic",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenniel123/Sell-Lemons/refs/heads/main/Sell%20Lemons"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Cyraa Hub",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/LynX99-9/komtolmmek2script/refs/heads/main/CyraaHub.lua"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "Adopt Me", icon = nil })
+
+
+tab:CreateButton({
+    name = "Dragons Hub",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Coemssuw8a/Dragonic-HUB/main/Protected_4928151334798917.lua.txt",true))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "seraphis (don't blame me if items gone its possible not sure tho)",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/astdoasdtiadn/Premium/refs/heads/main/main.lua"))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "Animal Hospital", icon = nil })
+
+
+tab:CreateButton({
+    name = "Snowy Hub ( key ) ",
+    callback = function()
+        loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/4ad6a2d2335968486879c1b1a2dcefc6937ea63c8acb88e703a1ec95a4a146ea/download"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "InfY",
+    callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "GAG2", icon = nil })
+
+
+tab:CreateButton({
+    name = "Axonic ( key )",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenniel123/Grow-A-Garden-2/refs/heads/main/Grow%20A%20Garden%202"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "Evade", icon = nil })
+
+
+tab:CreateButton({
+    name = "VHNS ( OP )",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/fratelevostru9999/src/refs/heads/main/evade%20vhns",true))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "Broken Bones IV", icon = nil })
+
+
+tab:CreateButton({
+    name = "INF MONEY( OP )",
+    callback = function()
+        loadstring(game:HttpGet('https://rawscripts.net/raw/Broken-Bones-IV-Ragdoll-Sim-Infinite-money-19709'))()
+    end,
+})
+
+
+
+local tab = window:CreateTab({ name = "FNAF: Eternal Nights", icon = nil })
+
+
+tab:CreateButton({
+    name = "ESP",
+    callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/taKJx12p"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "Dungeon Quest", icon = nil })
+
+
+tab:CreateButton({
+    name = "OP ( Idk Name)",
+    callback = function()
+        loadstring(game:HttpGet("https://aged-moomnn-3817.mjcontega2-cce.workers.dev"))()
+    end,
+})
+
+tab:CreateButton({
+    name = "EZ HUB",
+    callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/GirWhoqc/raw"))()
+    end,
+})
+
+local tab = window:CreateTab({ name = "Tower Of Hell", icon = nil })
+
+
+tab:CreateButton({
+    name = "KaiXar",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/madenciicom/towerofhell/refs/heads/main/TowerOfHell_KaiXar.lua"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "Fish It", icon = nil })
+
+
+tab:CreateButton({
+    name = "Chloe X ( Keyless )",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/MajestySkie/Chloe-X/main/Main/ChloeX"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "Pressure", icon = nil })
+
+
+tab:CreateButton({
+    name = "Personal Hub 1 ",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/LordEyes2/PersonalHub/refs/heads/main/Pressure"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Personal Hub 2 ",
+    callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/MyhX2sT3"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "(idk name not tested)",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/robloxnormalplayer/Pressure-0.1/refs/heads/main/Pressure-0.5.md"))()
+    end,
+})
+
+
+
+window:Notify({
+    title = "Made By",
+    content = "MiggyMango ( on discord )",
+    duration = 5,
+})
+
+
+
+local tab = window:CreateTab({ name = "Credits", icon = nil })
+
+
+tab:CreateButton({
+    name = "MiggyMango ( discord )",
+    callback = function()
+        if setclipboard then
+            setclipboard("miggymango")
+        end
+    end,
+})
