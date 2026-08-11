@@ -838,6 +838,44 @@ tab:CreateButton({
 
 
 
+local tab = window:CreateTab({ name = "break in story 1", icon = nil })
+
+
+
+tab:CreateButton({
+    name = "X hub ( keyless )",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Bebo-Mods/XHub/main/HubLoader.lua", true))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Nameless ( keyless )",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NumanZaidan/RobloxScript/main/BreakInStory"))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "break in story 2", icon = nil })
+
+
+
+
+tab:CreateButton({
+    name = "Blitz",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/RScriptz/RobloxScripts/main/BreakIn2.lua"))()
+    end,
+})
+
+
+
+
+
+
+
 window:Notify({
     title = "Made By",
     content = "MiggyMango ( on discord )",
