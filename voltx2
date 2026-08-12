@@ -166,107 +166,10 @@ tab:CreateSlider({
     end,
 })
 
-local flySpeed = 50
-local flying = false
-local flyConnection
-local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local player = game.Players.LocalPlayer
 
 
-local fly = tab:CreateToggle({
-    name = "Fly",
-    flag = "Fly",
-    value = false,
-
-    callback = function(value)
-        print("Fly:", value)
-
-        flying = value
-
-        if flyConnection then
-            flyConnection:Disconnect()
-            flyConnection = nil
-        end
-
-        if flying then
-            flyConnection = RunService.RenderStepped:Connect(function()
-                local character = player.Character
-                if not character then return end
-
-                local humanoid = character:FindFirstChildOfClass("Humanoid")
-                local root = character:FindFirstChild("HumanoidRootPart")
-
-                if not humanoid or not root then return end
-
-                humanoid.PlatformStand = true
-
-local camera = workspace.CurrentCamera
-local moveDirection = humanoid.MoveDirection
-
--- Make character face the camera
-root.CFrame = CFrame.new(
-    root.Position,
-    root.Position + camera.CFrame.LookVector
-)
-
-local velocity = Vector3.new(
-    moveDirection.X * flySpeed,
-    0,
-    moveDirection.Z * flySpeed
-)
-
--- Fly up
-if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
-    velocity += Vector3.new(0, flySpeed, 0)
-end
-
--- Fly down
-if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
-    velocity -= Vector3.new(0, flySpeed, 0)
-end
-
-root.AssemblyLinearVelocity = velocity
-
-                -- Fly down
-                if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
-                    velocity -= Vector3.new(0, flySpeed, 0)
-                end
-
-                root.AssemblyLinearVelocity = velocity
-            end)
-
-        else
-            local character = player.Character
-            if character then
-                local humanoid = character:FindFirstChildOfClass("Humanoid")
-                local root = character:FindFirstChild("HumanoidRootPart")
-
-                if humanoid then
-                    humanoid.PlatformStand = false
-                end
-
-                if root then
-                    root.AssemblyLinearVelocity = Vector3.zero
-                end
-            end
-        end
-    end,
-})
-
-fly:Set(false)
 
 
-tab:CreateSlider({
-    name = "Fly Speed",
-    range = {10, 200},
-    increment = 5,
-    value = 50,
-    suffix = "",
-    callback = function(value)
-        flySpeed = value
-    end,
-})
 
 
 
@@ -413,6 +316,21 @@ tab:CreateButton({
     name = "Z3us",
     callback = function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/blackowl1231/ZYPHERION/refs/heads/main/main.lua')))()
+    end,
+})
+
+tab:CreateButton({
+    name = "Skinchanger ( keyless )",
+    callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/Lutt6udW/raw"))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "JN HH ( verions paid|key|free )",
+    callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/Lutt6udW/raw"))()
     end,
 })
 
