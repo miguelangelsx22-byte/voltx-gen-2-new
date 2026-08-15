@@ -796,7 +796,7 @@ tab:CreateButton({
 
 window:Notify({
     title = "Made By",
-    content = "MiggyMango ( on discord )",
+    content = "MiggyMango & itzfierly_53630 & automatic_k1ll6_06143 ( on discord )",
     duration = 5,
 })
 
@@ -823,3 +823,26 @@ tab:CreateButton({
         end
     end,
 })
+
+
+
+tab:CreateButton({
+    name = "Discord Server Maker Credits ( fierly) ",
+    callback = function()
+        if setclipboard then
+            setclipboard("itzfierly_53630")
+        end
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Support/Script helper ( my friend ) ",
+    callback = function()
+        if setclipboard then
+            setclipboard("automatic_k1ll6_06143")
+        end
+    end,
+})
+
+
