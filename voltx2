@@ -813,3 +813,13 @@ tab:CreateButton({
         end
     end,
 })
+
+
+tab:CreateButton({
+    name = "Discord Server ( link lasts 30 days.. )",
+    callback = function()
+        if setclipboard then
+            setclipboard("https://discord.gg/FTVQTFuuF")
+        end
+    end,
+})
