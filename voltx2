@@ -21,6 +21,24 @@ tab:CreateButton({
     end,
 })
 
+tab:CreateButton({
+    name = "Egor",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GithubMagical/Roblox-Egor/refs/heads/main/lua%20v2", true))()
+    end,
+})
+
+
+tab:CreateButton({
+    name = "Fling",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/K1LAS1K/Ultimate-Fling-GUI/main/flingscript.lua"))()
+    end,
+})
+
+
+
+
 
 
 tab:CreateButton({
@@ -36,6 +54,14 @@ tab:CreateButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/SimpleSpyV3/main.lua"))()
     end,
 })
+
+tab:CreateButton({
+    name = "Happy Volt",
+    callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/miguelangelsx22-byte/happyvolt/refs/heads/main/happyvolt'))()
+    end,
+})
+
 
 
 
@@ -204,6 +230,15 @@ tab:CreateButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ATrainz/Phantasm/refs/heads/main/Games/TSB.lua"))()
     end,
 })
+
+tab:CreateButton({
+    name = "Best auto farm kills public ( NO KEY )",
+    callback = function()
+        loadstring(game:HttpGet("https://gitlab.com/zkay404-group/ProjectYielding/-/raw/main/ZKPublicFarm"))()
+    end,
+})
+
+
 
 
 tab:CreateButton({
@@ -776,7 +811,7 @@ tab:CreateButton({
 })
 
 
-local tab = window:CreateTab({ name = "break in story 2", icon = nil })
+local tab = window:CreateTab({ name = "Break in story 2", icon = nil })
 
 
 
@@ -787,6 +822,59 @@ tab:CreateButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/RScriptz/RobloxScripts/main/BreakIn2.lua"))()
     end,
 })
+
+
+local tab = window:CreateTab({ name = "Cheese Esc", icon = nil })
+
+
+tab:CreateButton({
+    name = "Cheese Esc",
+    callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/vmTGWrwc"))()
+    end,
+})
+
+local tab = window:CreateTab({ name = "8 Ball pool classic", icon = nil })
+
+tab:CreateButton({
+    name = "8 Ball Pool",
+    callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/0s5HMusS'))()
+    end,
+})
+
+
+local tab = window:CreateTab({ name = "Slap duels", icon = nil })
+
+tab:CreateButton({
+    name = "Slap duels script",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/meowzrz/SLAPDULESHUBMEOWZRZ/refs/heads/main/CATCOOLZ"))()
+    end,
+})
+
+local tab = window:CreateTab({ name = "Sheri vs Murd", icon = nil })
+
+
+
+tab:CreateButton({
+    name = "S VS M",
+    callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/usemilk/Milk-script/main/main.lua", true))()
+    end,
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -840,9 +928,12 @@ tab:CreateButton({
     name = "Support/Script helper ( my friend ) ",
     callback = function()
         if setclipboard then
-            setclipboard("automatic_k1ll6_06143")
+            setclipboard("automatic_k6ll")
         end
     end,
 })
+
+
+
 
 
